@@ -1,3 +1,7 @@
+# 1.2.1
+- Added iOS compatibility (still experimental)
+- Fixed the mod downloading Level Info & Mod Badge Info even though they aren't required
+
 # 1.2.0
 Thanks to NinKaz for all of the bugfixes/enhancements for this version!
 - No more lag when opening a level page
