@@ -8,7 +8,7 @@
 	},
 	"id": "arlind-dev.autoleaderboard",
 	"name": "AutoLeaderboard",
-	"version": "v1.3.0-beta.6",
+	"version": "v1.3.0",
 	"developers": ["M336", "Roxi", "NinKaz", "Arlind-dev"],
 	"description": "Fork of AutoLeaderboard by M336 that updates leaderboards automatically with adjusted triggers for when updates run",
 	"links": {
