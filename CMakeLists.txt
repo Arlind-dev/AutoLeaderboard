@@ -23,4 +23,30 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
+# Suppress third-party fmt warning on Clang (unused nodiscard result).
+function(suppress_fmt_warning target_name)
+    if (NOT TARGET ${target_name})
+        return()
+    endif()
+
+    get_target_property(fmt_alias ${target_name} ALIASED_TARGET)
+    if (fmt_alias)
+        set(fmt_target ${fmt_alias})
+    else()
+        set(fmt_target ${target_name})
+    endif()
+
+    get_target_property(fmt_type ${fmt_target} TYPE)
+    set(fmt_flag "$<$<CXX_COMPILER_ID:Clang,AppleClang>:-Wno-unused-result>")
+    if (fmt_type STREQUAL "INTERFACE_LIBRARY")
+        target_compile_options(${fmt_target} INTERFACE ${fmt_flag})
+    else()
+        target_compile_options(${fmt_target} PRIVATE ${fmt_flag})
+    endif()
+endfunction()
+
+foreach(fmt_target fmt fmt::fmt fmt-header-only fmt::fmt-header-only)
+    suppress_fmt_warning(${fmt_target})
+endforeach()
+
 setup_geode_mod(${PROJECT_NAME})

@@ -1,24 +1,23 @@
 {
-	"geode": "4.3.1",
+	"geode": "5.0.0-alpha.2",
 	"gd": {
-		"win": "2.2074",
-		"android": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074"
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
 	},
-	"id": "m336.autoleaderboard",
+	"id": "arlind-dev.autoleaderboard",
 	"name": "AutoLeaderboard",
-	"version": "v1.2.1-beta.1",
-	"developers": ["M336", "Roxi", "NinKaz"],
-	"description": "Automatically update the level leaderboards so that you don't have to do it yourself",
+	"version": "v1.3.0-beta.1",
+	"developers": ["M336", "Roxi", "NinKaz", "Arlind-dev"],
+	"description": "Fork of AutoLeaderboard by M336 that updates leaderboards automatically with adjusted triggers for when updates run",
 	"links": {
-		"community": "https://discord.gg/uproxide-s-little-land-1204580412299542608",
-		"source": "https://github.com/M336G/AutoLeaderboard"
+		"source": "https://github.com/Arlind-dev/AutoLeaderboard"
 	},
-	"repository": "https://github.com/M336G/AutoLeaderboard",
+	"repository": "https://github.com/Arlind-dev/AutoLeaderboard",
 	"issues": {
 		"info": "Having a problem with the mod? Report the issue on GitHub",
-		"url": "https://github.com/M336G/AutoLeaderboard/issues"
+		"url": "https://github.com/Arlind-dev/AutoLeaderboard/issues"
 	},
 	"tags": ["enhancement", "utility"],
 	"dependencies": [
@@ -34,6 +33,11 @@
 		}
 	],
 	"incompatibilities": [
+		{
+			"id": "m336.autoleaderboard",
+			"importance": "superseded",
+			"version": "*"
+		},
 		{
 			"id": "ninkaz.auto-leaderboard-plus",
 			"importance": "superseded",
