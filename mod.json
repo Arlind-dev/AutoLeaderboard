@@ -22,12 +22,12 @@
 	"tags": ["enhancement", "utility"],
 	"incompatibilities": {
 		"m336.autoleaderboard": {
-			"importance": "superseded",
-			"version": "*"
+			"version": ">=v0.0.0",
+			"importance": "superseded"
 		},
 		"ninkaz.auto-leaderboard-plus": {
-			"importance": "superseded",
-			"version": "*"
+			"version": ">=v0.0.0",
+			"importance": "superseded"
 		}
 	}
 }
