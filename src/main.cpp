@@ -3,6 +3,7 @@ using namespace geode::prelude;
 
 #include <Geode/modify/GJGameLevel.hpp>
 #include <Geode/modify/GameLevelManager.hpp>
+#include <Geode/modify/LevelInfoLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
 class $modify(ModGJGameLevel, GJGameLevel) {
@@ -24,36 +25,42 @@ class $modify(ModGJGameLevel, GJGameLevel) {
 		gm->setIntGameVariable("0098", leaderboardType);
 		gm->setIntGameVariable("0164", leaderboardMode);
 	}
+};
+
+class $modify(ModLevelInfoLayer, LevelInfoLayer) {
+	struct Fields {
+		bool hasChecked; // used to check if the leaderboard has been updated already
+	};
+
+	void levelDownloadFinished(GJGameLevel* p0) {
+		LevelInfoLayer::levelDownloadFinished(p0);
+		updateLeaderboardAuto();
+	}
+
+	void updateSideButtons() {
+		LevelInfoLayer::updateSideButtons();
+		if (!LevelInfoLayer::shouldDownloadLevel()) updateLeaderboardAuto();
+	}
 
 	$override
-	void savePercentage(int percent, bool isPracticeMode, int clicks, int attempts, bool isChkValid) {
-		auto oldPercent = m_normalPercent.value();
-		GJGameLevel::savePercentage(percent, isPracticeMode, clicks, attempts, isChkValid);
+	void onEnter() {
+		LevelInfoLayer::onEnter();
+		// Reset the flag when returning to the level info page so it updates after playing
+		m_fields->hasChecked = false;
+	}
 
-		// we don't want this running when the percent is 100%, because this function runs before coins are calculated
-		if (percent >= 100 || percent <= oldPercent) return;
+	void updateLeaderboardAuto() {
+		if (m_fields->hasChecked) return;
+		m_fields->hasChecked = true;
 
-		updateLeaderboard();
+		static_cast<ModGJGameLevel*>(m_level)->updateLeaderboard();
 	}
 };
 
 class $modify(PlayLayer) {
-	// since savePercentage runs before coins are calculated, on level complete we hook this function instead
 	$override
 	void levelComplete() {
-		auto oldPercent = m_level->m_normalPercent.value();
-		auto oldBestTime = m_level->m_bestTime;
 		PlayLayer::levelComplete();
-
-		bool isNewBestTime = m_level->m_bestTime < oldBestTime;
-		if (oldBestTime == 0) isNewBestTime = true;
-
-		// i couldn't find a good way to determine if the player collected more coins,
-		// so we always update the leaderboard when beating non-platformer levels
-		// but this shouldn't be a big deal, since you don't beat levels often enough to cause issues like rate limiting
-
-		if (m_level->isPlatformer() && !isNewBestTime) return;
-
 		static_cast<ModGJGameLevel*>(m_level)->updateLeaderboard();
 	}
 };
