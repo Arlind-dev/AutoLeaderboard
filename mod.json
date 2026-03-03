@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.1",
+	"geode": "5.0.0",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "arlind-dev.autoleaderboard",
 	"name": "AutoLeaderboard",
-	"version": "v2.0.0",
+	"version": "v2.0.1",
 	"developers": ["Arlind-dev", "M336", "Roxi", "NinKaz"],
 	"description": "Automatically update the level leaderboards so that you don't have to do it yourself",
 	"links": {
