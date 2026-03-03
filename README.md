@@ -4,6 +4,8 @@
 
 Automatically update the level leaderboards so that you don't have to do it yourself.
 
+Please note that sending too many requests may lead to a temporary IP ban. However, this would only happen if you downloaded a very large number of levels. This mod is not responsible for any IP bans that may occur.
+
 ## Contributing
 
 If you want to help me improve the mod, feel free to open a [pull request](https://github.com/Arlind-dev/AutoLeaderboard/pulls) on GitHub.
