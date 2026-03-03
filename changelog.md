@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.2
+
+- Create a new release to refresh the index description, changelog, and logo
+
+## 2.0.1
+
+- Add disclaimer for temporary IP bans
+- Change minimum Geode version to v5.0.0
+
 ## 2.0.0
 
 - Changed the leaderboard update trigger from death to map open
