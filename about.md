@@ -1,10 +1,12 @@
 # AutoLeaderboard
 
-> This is v5.0.0 continuation of [M336G/AutoLeaderboard](https://github.com/M336G/AutoLeaderboard).
+> By [Arlind](user:36585974)
 
 Automatically update the level leaderboards so that you don't have to do it yourself.
 
 Please note that sending too many requests may lead to a temporary IP ban. However, this would only happen if you downloaded a very large number of levels. This mod is not responsible for any IP bans that may occur.
+
+To prevent temporary IP bans altogether, go to the mod settings and switch the Update Trigger to **on-exit**.
 
 ## Contributing
 

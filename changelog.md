@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0
+
+- Fixed a crash on Android caused by the `handleIt` hook interfering with the rewards system
+- Added a new **Update Trigger** setting to choose between two leaderboard update behaviours:
+  - **level-page** *(default)*: updates when viewing the level page
+  - **on-exit**: updates when exiting a level (BetterInfo-style)
+- Both triggers now share the same smart guards: platformer levels only update on a new best time, and editor/daily levels are never submitted
+- Both triggers now use the Friends leaderboard type for lighter requests
+
 ## 2.0.2
 
 - Create a new release to refresh the index description, changelog, and logo
