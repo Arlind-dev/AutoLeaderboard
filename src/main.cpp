@@ -1,6 +1,5 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
-
 #include <Geode/modify/GJGameLevel.hpp>
 #include <Geode/modify/GameLevelManager.hpp>
 #include <Geode/modify/LevelInfoLayer.hpp>
@@ -10,13 +9,11 @@ class $modify(ModGJGameLevel, GJGameLevel) {
 	void updateLeaderboard() {
 		auto gm = GameManager::sharedState();
 		auto glm = GameLevelManager::sharedState();
-
 		auto leaderboardType = gm->getIntGameVariable("0098");
 		auto leaderboardMode = gm->getIntGameVariable("0164");
 
 		// using weekly should cut down the amount of data fetched
 		// might help mobile players on cell service but probably doesn't matter
-
 		// gd only updates whatever stat is fetched, so we have to call getLevelLeaderboard twice for platformer levels
 		glm->getLevelLeaderboard(static_cast<GJGameLevel*>(this), LevelLeaderboardType::Weekly, LevelLeaderboardMode::Time);
 		if (isPlatformer()) glm->getLevelLeaderboard(static_cast<GJGameLevel*>(this), LevelLeaderboardType::Weekly, LevelLeaderboardMode::Points);
@@ -29,7 +26,7 @@ class $modify(ModGJGameLevel, GJGameLevel) {
 
 class $modify(ModLevelInfoLayer, LevelInfoLayer) {
 	struct Fields {
-		bool hasChecked; // used to check if the leaderboard has been updated already
+		bool hasChecked;
 	};
 
 	void levelDownloadFinished(GJGameLevel* p0) {
@@ -52,7 +49,6 @@ class $modify(ModLevelInfoLayer, LevelInfoLayer) {
 	void updateLeaderboardAuto() {
 		if (m_fields->hasChecked) return;
 		m_fields->hasChecked = true;
-
 		static_cast<ModGJGameLevel*>(m_level)->updateLeaderboard();
 	}
 };
@@ -67,15 +63,11 @@ class $modify(PlayLayer) {
 
 class $modify(GameLevelManager) {
 	$override
-	void handleIt(bool idk, gd::string fetchedData, gd::string tag, GJHttpType httpType) {
-		GameLevelManager::handleIt(idk, fetchedData, tag, httpType);
-		if (httpType != GJHttpType::GetLevelLeaderboard) return;
-
+	void onGetLevelLeaderboardCompleted(gd::string response, gd::string tag) {
+		GameLevelManager::onGetLevelLeaderboardCompleted(response, tag);
 		// m_storedLevels holds all cached level-related data (levels, comments, leaderboards, etc)
 		// m_timerDict holds timestamps for when the data was last fetched. deleting these forces a refetch
-
-		// doing this prevents the leaderboard from erroneously showing "1 second ago" despite beating the level earlier than that
-
+		// prevents the leaderboard from erroneously showing "1 second ago" despite beating the level earlier
 		m_storedLevels->removeObjectForKey(tag);
 		m_timerDict->removeObjectForKey(tag);
 	}
