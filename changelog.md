@@ -2,6 +2,7 @@
 
 ## 2.1.0
 
+- Updated Geode bindings to v5.6.1
 - Fixed a crash on Android caused by the `handleIt` hook interfering with the rewards system
 - Added a new **Update Trigger** setting to choose between two leaderboard update behaviours:
   - **level-page** *(default)*: updates when viewing the level page
